@@ -1,8 +1,8 @@
-let mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
 mongoose.connect('mongodb://localhost/users', {useNewUrlParser: true});
 
-let db = mongoose.connection
+const db = mongoose.connection
 
 db.on('error', err => console.log(err.toString()));
 
