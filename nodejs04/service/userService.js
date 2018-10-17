@@ -21,16 +21,20 @@
     }*/
 
 const User = require("../model/user");
+//机密模块
+let encryptUtil = require("../utils/encryptUtil");
 
 //添加用户
-//TODO 未做用户密码加密
 async function add(user) {
     //用户名重复检查
     let result = await User.findOne({username: user.username});
-    if (result) throw new Error("用户已存在")
+    if (result) throw new Error(`${user.username}用户名已存在`)
+    //密码加密{参1:原文,参2:盐}
+    user.password = encryptUtil.sha256Hmac(user.password, user.username);
+    //权限赋值
+    user.role = 0
     result = await User.create(user);
     return result
-
 }
 
 //查找用户
@@ -56,7 +60,5 @@ async function isExists(id) {
     let result = await User.findOne({_id: id});
     if (!result) throw new Error(`用户ID:${id},不存在`);
 }
-
-//删除用户
 
 module.exports = {add, findAll, deleteOne, updateOne}
