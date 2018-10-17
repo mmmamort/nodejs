@@ -2,6 +2,8 @@ require("./db")
 const express = require("express");
 //添加日志打印包
 const morgan = require("morgan");
+//导入配置文件
+const config = require("./config");
 
 //创立连接
 const app = express();
@@ -10,4 +12,4 @@ const app = express();
 app.use(morgan("combined"))
 
 //端口号
-app.listen(80)
+app.listen(config.PORT)
