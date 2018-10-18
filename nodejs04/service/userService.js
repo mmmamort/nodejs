@@ -1,4 +1,3 @@
-
 const User = require("../model/user");
 //机密模块
 let encryptUtil = require("../utils/encryptUtil");
@@ -9,6 +8,8 @@ let encryptUtil = require("../utils/encryptUtil");
  * @returns {Promise<*>}
  */
 async function regist(user) {
+    //空值检查
+    checkNull(user.username, user.password)
     //用户名重复检查
     let result = await isExistsByName(user.username)
     if (result) throw new Error(`${user.username}用户名已存在`)
@@ -24,6 +25,8 @@ async function regist(user) {
 
 
 async function login(user) {
+    //空值检查
+    checkNull(user.username, user.password)
     //用户存在检查
     let result = await isExistsByName(user.username);
     if (!result) throw new Error(`${user.username}用户名不存在`)
@@ -66,6 +69,8 @@ async function deleteOne(id) {
  * @returns {Promise<void>}
  */
 async function updateOne(id, user) {
+    //空值检查
+    checkNull(user.username, user.password)
     await isExistsById(id)
     //密码加密{参1:原文,参2:盐}
     user.password = encryptUtil.sha256Hmac(user.password, user.username);
@@ -85,11 +90,15 @@ async function isExistsById(id) {
 /**
  * 用户存在检查
  * @param username
- * @returns {Promise<void>}
+ * @returns {Promise<*>}
  */
 async function isExistsByName(username) {
     let result = await User.findOne({username: username});
     return result
+}
+
+function checkNull(username, password) {
+    if (username == null || username.trim().length == 0 || password == null || password.trim().length == 0) throw  new Error("用户名密码为空")
 }
 
 module.exports = {regist, login, findAll, deleteOne, updateOne}

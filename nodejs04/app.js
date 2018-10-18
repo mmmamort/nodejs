@@ -1,4 +1,5 @@
 require("./db")
+require('express-async-errors');
 const express = require("express");
 //添加日志打印包
 const morgan = require("morgan");
@@ -35,7 +36,11 @@ app.use((req, res, next) => {
     }
 )
 
-app.use("/", userRouter)
+app.use("/user", userRouter)
+
+app.use((err, req, res, next) => {
+    if (err) res.fail(err)
+});
 
 //端口号
 app.listen(config.PORT)

@@ -1,4 +1,3 @@
-//todo 未做空参检测，以及未检测error提示
 let userService = require("../service/userService");
 let router = require("express").Router();
 /**
@@ -7,7 +6,7 @@ let router = require("express").Router();
  * @param user
  * @returns {Promise<*>}
  */
-router.post("/regist", async (req, res) => {
+router.post("/", async (req, res) => {
     let result = await userService.regist(req.body);
     res.succeed(result)
 });
@@ -18,7 +17,7 @@ router.post("/regist", async (req, res) => {
  * @param id
  * @returns {Promise<void>}
  */
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
     await userService.deleteOne(req.params.id);
     res.succeed()
 });
@@ -28,7 +27,7 @@ router.delete("/delete/:id", async (req, res) => {
  * url:http://localhost/findAll
  * @returns {Promise<*>}
  */
-router.get("/findAll", async (req, res) => {
+router.get("/", async (req, res) => {
     let result = await userService.findAll();
     res.succeed(result)
 });
@@ -40,7 +39,7 @@ router.get("/findAll", async (req, res) => {
  * @param user
  * @returns {Promise<void>}
  */
-router.post("/update/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
     let user = req.body
     await userService.updateOne(req.params.id, user);
     res.succeed()
