@@ -23,7 +23,11 @@ async function regist(user) {
     return result
 }
 
-
+/**
+ * 用户登录
+ * @param user
+ * @returns {Promise<*>}
+ */
 async function login(user) {
     //空值检查
     checkNull(user.username, user.password)
