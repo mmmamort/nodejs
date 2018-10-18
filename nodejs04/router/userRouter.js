@@ -1,12 +1,14 @@
 let userService = require("../service/userService");
 let router = require("express").Router();
+let config = require("../config");
+let encryptUtil = require("../utils/encryptUtil");
 /**
  * 添加用户
  * url:http://localhost/regist
  * @param user
  * @returns {Promise<*>}
  */
-router.post("/", async (req, res) => {
+router.post("/regist", async (req, res) => {
     let result = await userService.regist(req.body);
     res.succeed(result)
 });
@@ -17,7 +19,7 @@ router.post("/", async (req, res) => {
  * @param id
  * @returns {Promise<void>}
  */
-router.delete("/:id", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
     await userService.deleteOne(req.params.id);
     res.succeed()
 });
@@ -27,7 +29,7 @@ router.delete("/:id", async (req, res) => {
  * url:http://localhost/findAll
  * @returns {Promise<*>}
  */
-router.get("/", async (req, res) => {
+router.get("/findAll", async (req, res) => {
     let result = await userService.findAll();
     res.succeed(result)
 });
@@ -39,10 +41,22 @@ router.get("/", async (req, res) => {
  * @param user
  * @returns {Promise<void>}
  */
-router.put("/:id", async (req, res) => {
-    let user = req.body
-    await userService.updateOne(req.params.id, user);
+router.put("/update/:id", async (req, res) => {
+    await userService.updateOne(req.params.id, req.body);
     res.succeed()
 });
+
+/**
+ * 用户登录
+ * url:http://localhost/login
+ * @param user
+ * @returns {Promise<*>}
+ */
+router.post("/login", async (req, res) => {
+    let user = await userService.login(req.body);
+    let token = {username: user.username, expire: Date.now() + config.TOKEN_EXPIRE}
+    let result = encryptUtil.aesEncrypt(JSON.stringify(token), config.TOKEN_KEY);
+    res.succeed(result)
+})
 
 module.exports = router
