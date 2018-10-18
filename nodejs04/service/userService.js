@@ -1,4 +1,6 @@
 const User = require("../model/user");
+const config = require("../config");
+
 //机密模块
 let encryptUtil = require("../utils/encryptUtil");
 
@@ -101,8 +103,23 @@ async function isExistsByName(username) {
     return result
 }
 
+/**
+ * 用户名密码非空检查
+ * @param username
+ * @param password
+ */
 function checkNull(username, password) {
     if (username == null || username.trim().length == 0 || password == null || password.trim().length == 0) throw  new Error("用户名密码为空")
 }
 
-module.exports = {regist, login, findAll, deleteOne, updateOne}
+/**
+ * Token生成
+ * @param user
+ */
+function createToken(user) {
+    let token = {username: user.username, expire: Date.now() + config.TOKEN_EXPIRE}
+    let result = encryptUtil.aesEncrypt(JSON.stringify(token), config.TOKEN_KEY);
+    return result
+}
+
+module.exports = {regist, login, findAll, deleteOne, updateOne, createToken}
