@@ -1,6 +1,5 @@
 let userService = require("../service/userService");
 let router = require("express").Router();
-let config = require("../config");
 let encryptUtil = require("../utils/encryptUtil");
 /**
  * 添加用户
@@ -54,8 +53,7 @@ router.put("/update/:id", async (req, res) => {
  */
 router.post("/login", async (req, res) => {
     let user = await userService.login(req.body);
-    let token = {username: user.username, expire: Date.now() + config.TOKEN_EXPIRE}
-    let result = encryptUtil.aesEncrypt(JSON.stringify(token), config.TOKEN_KEY);
+    let result = userService.createToken(user);
     res.succeed(result)
 })
 
