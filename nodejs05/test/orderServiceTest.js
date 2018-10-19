@@ -6,7 +6,7 @@ async function test() {
     //5bc92778cafef30e7cd6e840
     let result = await orderService.addItem({
         productId: "5bc92778cafef30e7cd6e840",
-        count: 4,
+        count: 4
     });
 
 

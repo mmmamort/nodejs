@@ -7,7 +7,8 @@ const config = require("./config");
 const morgan = require("morgan");
 //导入router
 const categoryRouter = require("./router/categoryRouter"),
-    productRouter = require("./router/productRouter");
+    productRouter = require("./router/productRouter"),
+    orderRouter = require("./router/orderRouter");
 
 
 //创立连接
@@ -40,6 +41,7 @@ app.use((req, res, next) => {
 
 app.use("/category", categoryRouter)
 app.use("/product", productRouter)
+app.use("/order", orderRouter)
 
 app.use((err, req, res, next) => {
     if (err) res.fail(err)
