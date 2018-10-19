@@ -6,7 +6,8 @@ const config = require("./config");
 //添加日志打印包
 const morgan = require("morgan");
 //导入router
-const categoryRouter = require("./router/categoryRouter");
+const categoryRouter = require("./router/categoryRouter"),
+    productRouter = require("./router/productRouter");
 
 
 //创立连接
@@ -38,6 +39,7 @@ app.use((req, res, next) => {
 )
 
 app.use("/category", categoryRouter)
+app.use("/product", productRouter)
 
 app.use((err, req, res, next) => {
     if (err) res.fail(err)
