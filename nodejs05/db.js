@@ -1,5 +1,6 @@
 let mongoose = require("mongoose");
-mongoose.connect(`mongodb://localhost/nodejs05_mall`, {useNewUrlParser: true});
+let config = require("./config");
+mongoose.connect(`mongodb://localhost/${config.db}`, {useNewUrlParser: true});
 let db = mongoose.connection;
 db.on("error", err => {
     console.log(err.toString())

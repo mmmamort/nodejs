@@ -1,10 +1,13 @@
 require("./db")
 require('express-async-errors');
 const express = require("express");
+//导入配置
+const config = require("./config");
 //添加日志打印包
 const morgan = require("morgan");
 //导入router
-let categoryRouter = require("./router/categoryRouter");
+const categoryRouter = require("./router/categoryRouter");
+
 
 //创立连接
 const app = express();
@@ -40,5 +43,4 @@ app.use((err, req, res, next) => {
     if (err) res.fail(err)
 });
 
-//todo 端口可以抽取到config中
-app.listen(80)
+app.listen(config.PORT)

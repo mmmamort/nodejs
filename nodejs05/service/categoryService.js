@@ -1,13 +1,15 @@
-let Category = require("../model/category");
+const Category = require("../model/category");
+const config = require("../config");
+
 
 /**
  * 添加分类
- * post http://localhost/category/add/{id}
+ * post http://localhost/category/add
  * @param category
  * @returns {Promise<void>}
  */
 async function addItem(category) {
-    //商品重复
+    //分类重复
     let result = await findByName(category.name);
     if (result) throw new Error(`${category.name}商品类别已存在`)
     return await Category.create(category);
@@ -20,7 +22,7 @@ async function addItem(category) {
  * @returns {Promise<void>}
  */
 async function deleteById(id) {
-    //商品查询
+    //分类查询
     let result = await findById(id);
     if (!result) throw new Error(`ID:${id}商品类别不存在`)
     result = await Category.deleteOne({_id: id});
@@ -36,7 +38,7 @@ async function deleteById(id) {
  * @returns {Promise<void>}
  */
 async function updateById(id, category) {
-    //商品查询
+    //分类查询
     let result = await findById(id);
     if (!result) throw new Error(`ID:${id}商品类别不存在`)
     result = await Category.updateOne({_id: id}, category);
@@ -49,11 +51,9 @@ async function updateById(id, category) {
  * @param page
  * @returns {Promise<*>}
  */
-//todo pageSize可以抽取到config中
 async function findByPage(page = 1) {
-    let pageSize = 2;
-    let offset = (page - 1) * pageSize;
-    return await Category.find().skip(offset).limit(pageSize)
+    let offset = (page - 1) * config.pageSize;
+    return await Category.find().skip(offset).limit(config.pageSize)
 }
 
 /**
@@ -74,4 +74,4 @@ async function findById(id) {
     return await Category.findOne({_id: id});
 }
 
-module.exports = {addItem, deleteById, updateById, findByPage}
+module.exports = {addItem, deleteById, updateById, findByPage, findById}
