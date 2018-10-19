@@ -1,8 +1,7 @@
 const User = require("../model/user");
 const config = require("../config");
-
 //加密模块
-let encryptUtil = require("../utils/encryptUtil");
+const encryptUtil = require("../utils/encryptUtil");
 
 /**
  * 添加用户
@@ -64,7 +63,8 @@ async function findAll() {
  * @returns {Promise<void>}
  */
 async function deleteOne(id) {
-    await isExistsById(id)
+    let result = await isExistsById(id);
+    if (!result) throw new Error(`用户ID:${id},不存在`);
     await User.deleteOne({_id: id});
 }
 
@@ -77,7 +77,8 @@ async function deleteOne(id) {
 async function updateOne(id, user) {
     //空值检查
     checkNull(user.username, user.password)
-    await isExistsById(id)
+    let result = await isExistsById(id)
+    if (!result) throw new Error(`用户ID:${id},不存在`);
     //密码加密{参1:原文,参2:盐}
     user.password = encryptUtil.sha256Hmac(user.password, user.username);
     await User.updateOne({_id: id}, user);
@@ -86,11 +87,10 @@ async function updateOne(id, user) {
 /**
  * 用户存在检查
  * @param id
- * @returns {Promise<void>}
+ * @returns {Promise<*>}
  */
 async function isExistsById(id) {
-    let result = await User.findOne({_id: id});
-    if (!result) throw new Error(`用户ID:${id},不存在`);
+    return await User.findOne({_id: id});
 }
 
 /**
@@ -99,8 +99,7 @@ async function isExistsById(id) {
  * @returns {Promise<*>}
  */
 async function isExistsByName(username) {
-    let result = await User.findOne({username: username});
-    return result
+    return await User.findOne({username: username});
 }
 
 /**
@@ -122,4 +121,4 @@ function createToken(user) {
     return result
 }
 
-module.exports = {regist, login, findAll, deleteOne, updateOne, createToken}
+module.exports = {regist, login, findAll, deleteOne, updateOne, createToken, isExistsByName}

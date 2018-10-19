@@ -11,7 +11,6 @@ const categoryRouter = require("./router/categoryRouter"),
     orderRouter = require("./router/orderRouter"),
     userRouter = require("./router/userRouter");
 
-
 //创立连接
 const app = express();
 
@@ -21,24 +20,9 @@ app.use(morgan("combined"))
 //json格式转换
 app.use(express.json())
 
-app.use((req, res, next) => {
-        res.succeed = (result) => {
-            res.send({
-                code: 1,
-                msg: "操作成功",
-                data: result
-            })
-        }
-        res.fail = (err) => {
-            res.send({
-                code: 1,
-                msg: "操作失败",
-                data: err.toString()
-            })
-        }
-        next()
-    }
-)
+//导入中间件
+app.use(require("./middleware/response_md"))
+app.use(require("./middleware/token_md"))
 
 app.use("/user", userRouter)
 app.use("/category", categoryRouter)
