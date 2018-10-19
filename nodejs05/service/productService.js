@@ -9,12 +9,12 @@ const config = require("../config");
  * @returns {Promise<void>}
  */
 async function addItem(product) {
-    //商品重复
-    let result = await findByName(product.name);
-    if (result) throw new Error(`${product.name}商品名已存在`)
     //分类查询
-    result = await categoryService.findById(product.category);
+    let result = await categoryService.findById(product.category);
     if (result == null) throw new Error(`${product.category}商品分类不存在`)
+    //商品重复
+    result = await findByName(product.name);
+    if (result) throw new Error(`${product.name}商品名已存在`)
     result = await Product.create(product);
     return result
 }
@@ -36,7 +36,7 @@ async function deleteById(id) {
 
 /**
  * 更新商品
- * delete http://localhost/product/update/{id}
+ * update http://localhost/product/update/{id}
  * @param id
  * @param product
  * @returns {Promise<void>}
@@ -51,7 +51,7 @@ async function updateById(id, product) {
 
 /**
  * 分页查询
- * delete http://localhost/product/query/{page}
+ * get http://localhost/product/query/{page}
  * @param page
  * @returns {Promise<*>}
  */
@@ -78,4 +78,4 @@ async function findById(id) {
     return await Product.findOne({_id: id});
 }
 
-module.exports = {addItem, deleteById, findByPage, updateById}
+module.exports = {addItem, deleteById, findByPage, updateById, findById}
