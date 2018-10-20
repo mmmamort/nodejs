@@ -1,0 +1,43 @@
+POST http://localhost/user/regist
+Accept: */*
+Content-Type: application/json
+
+{"username":"admin","password":"123456","age":0}
+
+<> 2018-10-19T090404.200.json
+<> 2018-10-19T080433.200.json
+<> 2018-10-19T080352.200.json
+<> 2018-10-19T074951.200.json
+<> 2018-10-19T074557.500.html
+
+###
+POST http://localhost/user/login
+Accept: */*
+Content-Type: application/json
+
+{"username":"admin","password":"123456"}
+//{"username":"Keep","password":"123123"}
+
+<> 2018-10-19T093855.200.json
+<> 2018-10-19T093650.200.json
+<> 2018-10-19T093640.200.json
+<> 2018-10-19T093329.200.json
+<> 2018-10-19T093019.200.json
+<> 2018-10-19T092948.200.json
+<> 2018-10-19T084708.200.json
+<> 2018-10-19T084546.200.json
+<> 2018-10-19T084431.200.json
+<> 2018-10-19T084423.200.json
+<> 2018-10-19T084042.200.json
+<> 2018-10-19T083702.200.json
+<> 2018-10-19T083643.200.json
+<> 2018-10-19T083605.200.json
+
+###
+GET http://localhost/user/findAll
+Accept: */*
+token:6ca48601c38d93dc9ebf1ea5fdc57ab9e765a228868e2439f0c7b413d55b2ac4b287e794af880114fa58f258b0f1c0d6
+
+<> 2018-10-19T093831.200.json
+
+###

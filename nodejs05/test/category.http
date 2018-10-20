@@ -1,0 +1,35 @@
+POST http://localhost/category/add
+Accept: */*
+Content-Type: application/json
+
+{ "name":"电脑" }
+
+<> 2018-10-18T085942.200.json
+<> 2018-10-18T085655.200.json
+<> 2018-10-18T085647.200.json
+<> 2018-10-18T084813.200.json
+<> 2018-10-18T084733.200.json
+
+###
+
+GET http://localhost/category/query
+Accept: */*
+
+<> 2018-10-18T090014.200.json
+<> 2018-10-18T085607.200.json
+<> 2018-10-18T085506.200.json
+
+###
+
+DELETE http://localhost/category/delete/5bc854fe214d2d207056be6a
+Accept: */*
+
+<> 2018-10-18T085604.200.json
+
+###
+
+PUT http://localhost/category/update/
+Accept: */*
+Content-Type: application/json
+
+{ "name":"电脑" }

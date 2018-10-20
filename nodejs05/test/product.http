@@ -1,0 +1,69 @@
+POST http://localhost/product/add
+Accept: */*
+Content-Type: application/json
+
+  {"name": "testname2",
+  "price": "77777.00",
+  "stock": 999,
+  "category": "5bc92778cafef30e7cd6e840",
+  "description": "960帧/秒凝时拍摄！学生专享9折！"}
+
+<> 2018-10-19T030642.200.json
+<> 2018-10-19T030501.200.json
+<> 2018-10-19T030441.200.json
+<> 2018-10-19T024443.200.json
+<> 2018-10-19T024415.200.json
+<> 2018-10-19T115813.200.json
+<> 2018-10-19T114727.200.json
+<> 2018-10-19T114642.200.json
+<> 2018-10-19T113548.200.json
+<> 2018-10-19T113533.200.json
+
+###
+
+GET http://localhost/product/query/1
+Accept: */*
+token:13c16d3cbc11f2ce6b505f5dba2fd3caf311b23f722275a592c3925aa1214f84e85e9e34a9fb131f63776ac62288de5f
+
+<> 2018-10-19T093909.200.json
+<> 2018-10-19T084726.200.json
+<> 2018-10-19T084604.200.json
+<> 2018-10-19T084553.200.json
+<> 2018-10-19T084434.200.json
+<> 2018-10-19T084306.200.json
+<> 2018-10-19T084116.200.json
+<> 2018-10-19T084052.200.json
+<> 2018-10-19T083716.200.json
+<> 2018-10-19T083650.200.json
+<> 2018-10-19T083636.200.json
+<> 2018-10-19T083543.200.json
+<> 2018-10-19T080445.200.json
+<> 2018-10-19T114631.200.json
+<> 2018-10-19T114626.200.json
+<> 2018-10-19T113703.200.json
+<> 2018-10-19T113649.200.json
+<> 2018-10-19T113617.200.json
+<> 2018-10-19T113556.200.json
+
+###
+
+DELETE http://localhost/product/delete/5bc9507ca252a812e0440d03
+Accept: */*
+
+<> 2018-10-19T113658.200.json
+
+###
+
+PUT http://localhost/product/update/5bc9507ca252a812e0440d03
+Accept: */*
+Content-Type: application/json
+
+  {"name": "testname1",
+  "price": "77777.00",
+  "stock": 999,
+  "category": "5bc87e7aaa3c1433fc75537a",
+  "description": "960帧/秒凝时拍摄！学生专享9折！"}
+
+<> 2018-10-19T113645.200.json
+
+###

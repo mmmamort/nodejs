@@ -23,6 +23,7 @@ app.use(express.json())
 //导入中间件
 app.use(require("./middleware/response_md"))
 app.use(require("./middleware/token_md"))
+app.use(require("./middleware/promission_md"))
 
 app.use("/user", userRouter)
 app.use("/category", categoryRouter)
